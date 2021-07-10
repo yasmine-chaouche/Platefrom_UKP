@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from tv import ukp, ukp_tv, execute_instance, readData2, readData3
 from AG import *
+from RS import*
+from hyper_ga import Hyper_GA
 
 from BranchAndBound import knapsack_BB ,unboundedKnapsack
 import plotly.express as px
@@ -453,10 +455,102 @@ def main():
 
 
     elif page3=="Récuit Simulé":
-        st.header("This is your data explorer.")
-        st.write("Please select a hhhhhhhhh page on the left.")
+        st.header("Récuit simulé")
+        st.write("entrer manuellement les données:")
+        poids,gain,capa,temp,choix=st.beta_columns([2, 2,2,2,2])
+        poids = poids.text_input("volume")
+        gain = gain.text_input("gain")
+        capa=capa.number_input("capacité")
+        temp = temp.text_input("température")
+        choix = st.radio("Solution initiale aléatoire: ", ('OUI', 'NON'))
+
+        # conditional statement to print
+        # Male if male is selected else print female
+        # show the result using the success function
+        if (choix == 'Male'):
+            st.success("Male")
+
+        capa=int(capa)
+
+        if st.button("Add row"):
+            get_data().append({"volumes": poids, "gains": gain})
+
+        df = pd.DataFrame(get_data())
+        st.write(df)
+
+        if st.button("Add csv file"):
+            df.to_csv('myFile.csv', columns=["volumes", "gains"], index=False)
+
+        ########################################################################
+        filename = file_selector2()
+        st.write('Vous avez choisi le fichier: `%s`' % filename)
+
+        cap, nb, items = readData6(filename)
+
+        ############################################################################""
+        start = time.time()
+        nb_solutions = 100
+        items_sorted = trier_objet_utility(items)
+        tab_max_nb_items, taille = get_max_number_item(items_sorted, cap)
+        tab_poids_new = get_tab_poid_new(items_sorted, tab_max_nb_items)
+        tab_gain_new = get_tab_gain_new(items_sorted, tab_max_nb_items)
+        solutions = generer_solutions(nb_solutions, taille, tab_poids_new, cap)
+        objects, solution, gain_tot, poids = geneticAlgorithm(items, cap, 20, solutions, nb_solutions, 2, 0.05, 0.8)
+        end = time.time()
+        st.write("le gain: ", gain_tot)
+        st.write( "Temps d'éxécution : ", end - start)
+        ################################################################################"""
+        st.title("Fichier de taille entre 5000 et 10000 objets ")
+        if(st.button("afficher graphe")):
+            aa = ["Datasets\\Facile\\Moyenne\\cap591952_5000_facile.csv",
+                  # "Datasets\\Facile\\Grande\\cap7547243_10000_facile.csv",
+                  "Datasets\\Moyenne\\Moyenne\\cap3897377_5000_moy.csv",
+                  "Datasets\\Moyenne\\Grande\\cap52926330_10000_moy.csv",
+                  "Datasets\\Difficile\\Moyenne\\cap1596642_5000_diff.csv",
+                  "Datasets\\Difficile\\Grande\\cap1596642_10000_diff.csv"]
+
+            tmpp = []
+            instancess = []
+            for g in range(len(aa)):
+                st.write("ggg", aa[g])
+                cap, nb, items = readData6(aa[g])
+
+                # wt = items[0].tolist()
+                # val = items[1].tolist()
+
+                start = time.time()
+                nb_solutions = 100
+                items_sorted = trier_objet_utility(items)
+                tab_max_nb_items, taille = get_max_number_item(items_sorted, cap)
+                tab_poids_new = get_tab_poid_new(items_sorted, tab_max_nb_items)
+                tab_gain_new = get_tab_gain_new(items_sorted, tab_max_nb_items)
+                solutions = generer_solutions(nb_solutions, taille, tab_poids_new, cap)
+                objects, solution, gain_tot, poids = geneticAlgorithm(items, cap, 20, solutions, nb_solutions, 2, 0.05, 0.8)
+                end = time.time()
+                n = len(items[1])
+                instancess.append(n)
+                tmpp.append(end - start)
+
+            fig = plt.figure(figsize=(10, 8), dpi=80)
+            plt.plot(instancess, tmpp, color="forestgreen", label="WOH")
+            #plt.px.bar(mean_counts_by_hour, x='hour', y='count', color='season', height=400)
+            plt.xlabel("taille des instances (objets)")
+            plt.ylabel("temps d'exécution (s)")
+            plt.legend()
+            st.pyplot(fig)
+
     elif page4=="hyper-heuristique AG de AG":
-        st.header("hyper-heuristique AG de AG")
+        st.title("Hyper-heuristique AG de AG")
+        items = [[23, 92], [31, 57], [29, 49], [44, 68], [53, 60], [38, 43], [63, 67], [85, 84], [89, 87], [82, 72]]
+        capacity = 165
+        n = len(items)
+        hyperGa = Hyper_GA(capacity, n, items)
+        current_iteration, num_no_change,fitness = hyperGa.run()
+        st.write("nb iter : ")
+        st.write(current_iteration)
+        st.write("num_no_change : ")
+        st.write(num_no_change)
+        st.write("fitness",fitness)
 
 @st.cache(allow_output_mutation=True)
 def get_data():

@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="354d7c1e-2ac1-43da-bad1-1043c34c9158" name="Default Changelist" comment="" />
+    <list default="true" id="354d7c1e-2ac1-43da-bad1-1043c34c9158" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/AGG.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RS.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RSS.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hyper_ga.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file.py" beforeDir="false" afterPath="$PROJECT_DIR$/file.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +22,18 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="D:\optim_project\.idea" />
+      </set>
+    </option>
+  </component>
   <component name="ProjectId" id="1tOo6FC42ThSubNRFTXr87p6rq5" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -147,6 +166,7 @@
       <workItem from="1625898012848" duration="1011000" />
       <workItem from="1625899141044" duration="2470000" />
       <workItem from="1625904477079" duration="5055000" />
+      <workItem from="1625911100361" duration="3534000" />
     </task>
     <servers />
   </component>
